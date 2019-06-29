@@ -35,6 +35,12 @@ class Hamburger {
         category: 'size',
         name: 'SIZE_SMALL',
     }
+    static SIZE_LARGE = {
+        price: 100,
+        calories: 40,
+        category: 'size',
+        name: 'SIZE_LARGE',
+    }
 
     static STUFFING_CHEESE = {
         price: 10,
@@ -43,14 +49,31 @@ class Hamburger {
         name: 'STUFFING_CHEESE',
     }
 
+    static STUFFING_SALAD = {
+        price: 20,
+        calories: 5,
+        category: 'stuffing',
+        name: 'STUFFING_SALAD',
+    }
+    static STUFFING_POTATO = {
+        price: 15,
+        calories: 10,
+        category: 'stuffing',
+        name: 'STUFFING_POTATO',
+    }
+
     static TOPPING_MAYO = {
         price: 20,
         calories: 5,
         category: 'topping',
         name: 'TOPPING_MAYO',
     }
-
-
+    static TOPPING_SPICE = {
+        price: 15,
+        calories: 0,
+        category: 'topping',
+        name: 'TOPPING_SPICE',
+    }
 
     getSize() {
         return this._size
@@ -117,6 +140,7 @@ const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE)
 const hamburger2 = new Hamburger(Hamburger.STUFFING_CHEESE, Hamburger.STUFFING_CHEESE)
 hamburger.addTopping(Hamburger.TOPPING_MAYO)
 hamburger.addTopping(Hamburger.TOPPING_MAYO)
+hamburger.removeTopping(Hamburger.TOPPING_MAYO)
 hamburger.removeTopping(Hamburger.TOPPING_MAYO)
 console.log("Is hamburger small: %s", hamburger.getSize() === Hamburger.SIZE_SMALL)
 console.log("This stuffing is %s", hamburger.getStuffing().name)
