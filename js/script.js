@@ -85,7 +85,7 @@ class Hamburger {
             this._toppings.push(topping)
         } else
             try {
-                throw new HamburgerException('duplicate topping ' + topping.name)
+                throw new HamburgerException('duplicate topping: ' + topping.name)
             } catch (e) {
                 console.log(e.name, e.message)
             }
@@ -98,7 +98,7 @@ class Hamburger {
             )
         } else
             try {
-                throw new HamburgerException('Can not remove a non-existent topping ' + topping.name)
+                throw new HamburgerException('Can not remove a non-existent topping: ' + topping.name)
             } catch (e) {
                 console.log(e.name, e.message)
             }
