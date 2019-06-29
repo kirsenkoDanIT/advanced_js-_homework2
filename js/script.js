@@ -108,7 +108,7 @@ class Hamburger {
             this._toppings.push(topping)
         } else
             try {
-                throw new HamburgerException('duplicate topping: ' + topping.name)
+                throw new HamburgerException('duplicate topping ' + topping.name)
             } catch (e) {
                 console.log(e.name, e.message)
             }
@@ -121,7 +121,7 @@ class Hamburger {
             )
         } else
             try {
-                throw new HamburgerException('Can not remove a non-existent topping: ' + topping.name)
+                throw new HamburgerException('Can not remove a non-existent topping ' + topping.name)
             } catch (e) {
                 console.log(e.name, e.message)
             }
@@ -136,13 +136,17 @@ function HamburgerException(message) {
 
 
 
-const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE)
-const hamburger2 = new Hamburger(Hamburger.STUFFING_CHEESE, Hamburger.STUFFING_CHEESE)
+// const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE)
+// const hamburger2 = new Hamburger(Hamburger.STUFFING_CHEESE, Hamburger.STUFFING_CHEESE)
+const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE)
 hamburger.addTopping(Hamburger.TOPPING_MAYO)
 hamburger.addTopping(Hamburger.TOPPING_MAYO)
+hamburger.addTopping(Hamburger.TOPPING_SPICE)
 hamburger.removeTopping(Hamburger.TOPPING_MAYO)
 hamburger.removeTopping(Hamburger.TOPPING_MAYO)
 console.log("Is hamburger small: %s", hamburger.getSize() === Hamburger.SIZE_SMALL)
+console.log("Is hamburger large: %s", hamburger.getSize() === Hamburger.SIZE_LARGE)
+console.log("This size is %s", hamburger.getSize().name)
 console.log("This stuffing is %s", hamburger.getStuffing().name)
 console.log("Price: %f", hamburger.calculatePrice())
 console.log("Calories: %f", hamburger.calculateCalories())
