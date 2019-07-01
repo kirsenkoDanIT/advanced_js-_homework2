@@ -3,10 +3,6 @@
 class Hamburger {
 
     constructor(size, stuffing) {
-        this._size = size
-        this._stuffing = stuffing
-        this._toppings = []
-
         try {
             if (!arguments['0']) {
                 throw new HamburgerException('no size given')
@@ -26,7 +22,9 @@ class Hamburger {
         } catch (e) {
             console.log(e.name, e.message)
         }
-
+        this._size = size
+        this._stuffing = stuffing
+        this._toppings = []
     }
 
     static SIZE_SMALL = {
