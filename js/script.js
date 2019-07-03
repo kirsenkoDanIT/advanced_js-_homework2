@@ -124,7 +124,7 @@ class Hamburger {
             this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories
         }
 
-        return this._calories?this._calories:0
+        return this._calories ? this._calories : 0
     }
     set toppings(topping) {
 
@@ -172,15 +172,15 @@ function HamburgerException(message) {
 const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_POTATO)
 // console.log("Calories: %f", hamburger.calculateCalories())
 // console.log("Price: %f", hamburger.calculatePrice())
-// const hamburger = new Hamburger(Hamburger.SIZE_LARGE, 1)
+// const hamburger = new Hamburger()
 // добавка из майонеза
 hamburger.toppings = Hamburger.TOPPING_MAYO
-hamburger.toppings = Hamburger.TOPPING_MAYO
-hamburger.removeTopping(Hamburger.TOPPING_MAYO)
-hamburger.toppings = 1
-hamburger.toppings = ''
-hamburger.toppings = Hamburger.STUFFING_POTATO
-hamburger.removeTopping(Hamburger.STUFFING_POTATO)
+// hamburger.toppings = Hamburger.TOPPING_MAYO
+// hamburger.removeTopping(Hamburger.TOPPING_MAYO)
+// hamburger.toppings = 1
+// hamburger.toppings = ''
+// hamburger.toppings = Hamburger.STUFFING_POTATO
+// hamburger.removeTopping(Hamburger.STUFFING_POTATO)
 // спросим сколько там калорий
 console.log("Calories: %f", hamburger.calculateCalories())
 // сколько стоит
