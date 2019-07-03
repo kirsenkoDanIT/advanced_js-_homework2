@@ -90,16 +90,14 @@ class Hamburger {
                 throw new HamburgerException('nothing to calc, invalid size/stuffing')
             }
 
+            let totalToppinsPrice = this._toppings.reduce((acc, item) => {
+                return acc + item.price
+            }, 0) || 0
+
+            this._price = this._size.price + this._stuffing.price + totalToppinsPrice
+
         } catch (e) {
             console.log(e.name, e.message)
-        }
-
-        let totalToppinsPrice = this._toppings.reduce((acc, item) => {
-            return acc + item.price
-        }, 0) || 0
-
-        if (this._size && this._stuffing) {
-            this._price = this._size.price + this._stuffing.price + totalToppinsPrice
         }
 
         return this._price ? this._price : 0
@@ -111,17 +109,15 @@ class Hamburger {
             if (!this._size || !this._stuffing || this._size.category !== 'size' || this._stuffing.category !== 'stuffing') {
                 throw new HamburgerException('nothing to calc, invalid size/stuffing')
             }
+            let totalToppinsCalories = this._toppings.reduce((acc, item) => {
+                return acc + item.calories
+            }, 0) || 0
+
+            this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories
+
 
         } catch (e) {
             console.log(e.name, e.message)
-        }
-
-        let totalToppinsCalories = this._toppings.reduce((acc, item) => {
-            return acc + item.calories
-        }, 0) || 0
-
-        if (this._size && this._stuffing) {
-            this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories
         }
 
         return this._calories ? this._calories : 0
@@ -169,10 +165,10 @@ function HamburgerException(message) {
 
 
 // маленький гамбургер с начинкой из сыра
-const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_POTATO)
+// const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_POTATO)
 // console.log("Calories: %f", hamburger.calculateCalories())
 // console.log("Price: %f", hamburger.calculatePrice())
-// const hamburger = new Hamburger()
+const hamburger = new Hamburger()
 // добавка из майонеза
 hamburger.toppings = Hamburger.TOPPING_MAYO
 // hamburger.toppings = Hamburger.TOPPING_MAYO
