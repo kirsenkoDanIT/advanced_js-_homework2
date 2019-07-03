@@ -102,11 +102,7 @@ class Hamburger {
             this._price = this._size.price + this._stuffing.price + totalToppinsPrice
         }
 
-        if (!this._price) {
-            this._price = 0
-        }
-
-        return this._price
+        return this._price ? this._price : 0
     }
 
 
@@ -128,11 +124,7 @@ class Hamburger {
             this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories
         }
 
-        if (!this._calories) {
-            this._calories = 0
-        }
-
-        return this._calories
+        return this._calories?this._calories:0
     }
     set toppings(topping) {
 
@@ -203,7 +195,7 @@ console.log("Is hamburger large: %s", hamburger.getSize() === Hamburger.SIZE_LAR
 console.log("Is stuffing potato: %s", hamburger.getStuffing() === Hamburger.STUFFING_POTATO)
 
 // Убрать добавку
-// hamburger.removeTopping(Hamburger.TOPPING_SPICE)
+hamburger.removeTopping(Hamburger.TOPPING_SPICE)
 console.log("Have %d toppings", hamburger.toppings.length)
 
 
