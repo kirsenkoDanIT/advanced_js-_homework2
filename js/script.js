@@ -9,7 +9,7 @@ class Hamburger {
             }
 
             if (size.category !== 'size') {
-                throw new HamburgerException('invalid size ' + size.name)
+                throw new HamburgerException(`invalid size ${size.name}`)
             }
 
             if (!arguments['1']) {
@@ -17,7 +17,7 @@ class Hamburger {
             }
 
             if (stuffing.category !== 'stuffing') {
-                throw new HamburgerException('invalid stuffing ' + stuffing.name)
+                throw new HamburgerException(`invalid stuffing ${stuffing.name}`)
             }
         } catch (e) {
             console.log(e.name, e.message)
@@ -79,51 +79,93 @@ class Hamburger {
     getStuffing() {
         return this._stuffing
     }
-    getToppings() {
+    get toppings() {
         return this._toppings
     }
     calculatePrice() {
-        if (this._toppings.length) {
-            const totalToppinsPrice = this._toppings.reduce((acc, item) => {
-                return acc + item.price
-            }, 0)
-            this.price = this._size.price + this._stuffing.price + totalToppinsPrice
-        } else this.price = this._size.price + this._stuffing.price
-        return this.price
-    }
-    calculateCalories() {
-        if (this._toppings.length) {
-            const totalToppinsCalories = this._toppings.reduce((acc, item) => {
-                return acc + item.calories
-            }, 0)
-            this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories
-        } else this._calories = this._size.calories + this._stuffing.calories
-        return this._calories
-    }
-    addTopping(topping) {
-
-        if (!this._toppings.includes(topping)) {
-            this._toppings.push(topping)
-        } else
-            try {
-                throw new HamburgerException('duplicate topping ' + topping.name)
-            } catch (e) {
-                console.log(e.name, e.message)
+        try {
+            if (!this._size || !this._stuffing || this._size.category !== 'size' || this._stuffing.category !== 'stuffing') {
+                throw new HamburgerException('nothing to calc, invalid size/stuffing');
             }
+
+        } catch (e) {
+            console.log(e.name, e.message);
+        }
+
+        let totalToppinsPrice = this._toppings.reduce((acc, item) => {
+            return acc + item.price
+        }, 0) || 0;
+
+        if (this._size && this._stuffing) {
+            this._price = this._size.price + this._stuffing.price + totalToppinsPrice;
+        }
+
+        if (!this._price) {
+            this._price = 0;
+        }
+
+        return this._price;
+    }
+
+
+    calculateCalories() {
+        try {
+            if (!this._size || !this._stuffing || this._size.category !== 'size' || this._stuffing.category !== 'stuffing') {
+                throw new HamburgerException('nothing to calc, invalid size/stuffing');
+            }
+
+        } catch (e) {
+            console.log(e.name, e.message);
+        }
+
+        let totalToppinsCalories = this._toppings.reduce((acc, item) => {
+            return acc + item.calories
+        }, 0) || 0;
+
+        if (this._size && this._stuffing) {
+            this._calories = this._size.calories + this._stuffing.calories + totalToppinsCalories;
+        }
+
+        if (!this._calories) {
+            this._calories = 0;
+        }
+
+        return this._calories;
+    }
+    set toppings(topping) {
+
+        try {
+            if (!this._size || !this._stuffing) {
+                throw new HamburgerException('can not add topping, no size/stuffing given');
+            }
+            if (!topping || topping.category !== 'topping') {
+                throw new HamburgerException('invalid topping!');
+            }
+            if (this._toppings.includes(topping)) {
+                throw new HamburgerException(`duplicate topping ${topping.name}`);
+            }
+            this._toppings.push(topping)
+        } catch (e) {
+            console.log(e.name, e.message);
+        }
     }
     removeTopping(topping) {
-
-        if (this._toppings.includes(topping)) {
-            this._toppings = this._toppings.filter(item =>
-                item !== topping
-            )
-        } else
-            try {
-                throw new HamburgerException('Can not remove a non-existent topping ' + topping.name)
-            } catch (e) {
-                console.log(e.name, e.message)
+        try {
+            if (!this._size || !this._stuffing) {
+                throw new HamburgerException('can not remove topping, no size/stuffing given');
             }
-
+            if (!topping || topping.category !== 'topping') {
+                throw new HamburgerException('invalid topping!');
+            }
+            if (!this._toppings.includes(topping)) {
+                throw new HamburgerException(`Can not remove a non-existent topping  ${topping.name}`);
+            }
+            this._toppings = this._toppings.filter((item) => {
+                return item !== topping
+            });
+        } catch (e) {
+            console.log(e.name, e.message);
+        }
     }
 }
 
@@ -134,18 +176,21 @@ function HamburgerException(message) {
 
 
 
-// const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE)
+const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE)
+// hamburger.toppings = Hamburger.TOPPING_MAYO
+// hamburger.toppings = Hamburger.TOPPING_SPICE
+hamburger.toppings = 'Hamburger.TOPPING_SPICE'
+hamburger.toppings = Hamburger.STUFFING_CHEESE
+// console.log(hamburger.toppings);
 // const hamburger2 = new Hamburger(Hamburger.STUFFING_CHEESE, Hamburger.STUFFING_CHEESE)
-const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE)
-hamburger.addTopping(Hamburger.TOPPING_MAYO)
-hamburger.addTopping(Hamburger.TOPPING_MAYO)
-hamburger.addTopping(Hamburger.TOPPING_SPICE)
-hamburger.removeTopping(Hamburger.TOPPING_MAYO)
-hamburger.removeTopping(Hamburger.TOPPING_MAYO)
-console.log("Is hamburger small: %s", hamburger.getSize() === Hamburger.SIZE_SMALL)
-console.log("Is hamburger large: %s", hamburger.getSize() === Hamburger.SIZE_LARGE)
-console.log("This size is %s", hamburger.getSize().name)
-console.log("This stuffing is %s", hamburger.getStuffing().name)
-console.log("Price: %f", hamburger.calculatePrice())
-console.log("Calories: %f", hamburger.calculateCalories())
-console.log("Have %d toppings", hamburger.getToppings().length)
+// const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE)
+
+// hamburger.removeTopping(Hamburger.TOPPING_MAYO)
+// hamburger.removeTopping(Hamburger.TOPPING_MAYO)
+// console.log("Is hamburger small: %s", hamburger.getSize() === Hamburger.SIZE_SMALL)
+// console.log("Is hamburger large: %s", hamburger.getSize() === Hamburger.SIZE_LARGE)
+// console.log("This size is %s", hamburger.getSize().name)
+// console.log("This stuffing is %s", hamburger.getStuffing().name)
+// console.log("Price: %f", hamburger.calculatePrice())
+// console.log("Calories: %f", hamburger.calculateCalories())
+console.log("Have %d toppings", hamburger.toppings.length)
