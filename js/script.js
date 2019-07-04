@@ -165,10 +165,10 @@ function HamburgerException(message) {
 
 
 // маленький гамбургер с начинкой из сыра
-// const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_POTATO)
+const hamburger = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_POTATO)
 // console.log("Calories: %f", hamburger.calculateCalories())
 // console.log("Price: %f", hamburger.calculatePrice())
-const hamburger = new Hamburger()
+// const hamburger = new Hamburger()
 // добавка из майонеза
 hamburger.toppings = Hamburger.TOPPING_MAYO
 // hamburger.toppings = Hamburger.TOPPING_MAYO
